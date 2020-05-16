@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Button from './button';
-import { store } from '../store';
 
 class Operators extends Component {
-    opHandler(type) {
-        store.newExpression = `${store.curExpression} ${type} `;
+    operatorClickHandler(operator) {
+        this.props.updateExpression(`${this.props.expression} ${operator} `);
     }
 
     calculateExpression() {
@@ -15,7 +14,9 @@ class Operators extends Component {
         const calcFunc = eval;
         /* eslint-enable */
         try {
-            store.newExpression = calcFunc(store.curExpression);
+            // store.newExpression = calcFunc(store.curExpression);
+            let newExpression = calcFunc(this.props.expression);
+            this.props.updateExpression(newExpression);
         } catch (e) {
             console.error("Error: Incorrect Expression of digits & operators :(")
         }
@@ -25,10 +26,10 @@ class Operators extends Component {
         return (
             <section className="buttons--operators">
                 {["+", "-", "*", "/"]
-                    .map((op, i) => (
-                        <Button key={i} text={op} clickHandler={this.opHandler}/>)
+                    .map((operator, i) => (
+                        <Button key={i} text={operator} clickHandler={() => this.operatorClickHandler(operator)}/>)
                     )}
-                <Button text="=" clickHandler={this.calculateExpression}/>
+                <Button text="=" clickHandler={() => this.calculateExpression()}/>
             </section>
         )
     }

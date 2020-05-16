@@ -1,55 +1,19 @@
 import React, { Component } from 'react';
 import Button from './button';
-import { ee, store } from '../store';
 
 class History extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = { show: false, history: [] };
-        this.toggleHistory = this.toggleHistory.bind(this);
-        this.addHistoryItem = this.addHistoryItem.bind(this);
-        this.getHistoryItems = this.getHistoryItems.bind(this);
-    }
-
-    componentWillMount() {
-        ee.addListener('historyUpdate', this.addHistoryItem);
-        ee.addListener('toggle-history', this.toggleHistory);
-    }
-
-    addHistoryItem(historyItem) {
-        const trimmedItem = historyItem.toString().trim();
-        if (this.getHistoryItems().filter(i => i === trimmedItem).length === 0) {
-            this.setState({
-                ...this.state,
-                history: [
-                    ...this.state.history,
-                    trimmedItem
-                ]
-            });
-        }
-    }
-
-    getHistoryItems() {
-        return this.state.history.filter(h => !!h);
-    }
-
-    toggleHistory() {
-        this.setState({ ...this.state, show: !this.state.show });
-    }
-
     historyItemClickHandler(history) {
-        store.newExpression = history;
-        ee.emitEvent('toggle-history');
+        this.props.updateExpression(history);
+        this.props.toggleHistory();
     }
 
     render() {
         return (
-            <section className={`history ${this.state.show ? 'visible' : ''}`}>
-                <Button text="+" clickHandler={this.toggleHistory} buttonClass="toggle-close"/>
-                {this.getHistoryItems().map((mem, i) => (
+            <section className={`history ${this.props.history.show ? 'visible' : ''}`}>
+                <Button text="+" clickHandler={() => this.props.toggleHistory()} buttonClass="toggle-close"/>
+                {this.props.history.items.map((mem, i) => (
                     <Button key={i} buttonClass="block transparent"
-                            text={mem} clickHandler={this.historyItemClickHandler}/>
+                            text={mem} clickHandler={() => this.historyItemClickHandler(mem)}/>
                 ))}
             </section>
         )

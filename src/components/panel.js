@@ -1,29 +1,20 @@
 import React, { Component } from 'react';
 import Button from './button';
-import { ee, store } from '../store';
 
 class ControlPanel extends Component {
-    showHistory() {
-        ee.emitEvent('toggle-history');
-    }
-
-    clearDisplay() {
-        store.newExpression = 0;
-    }
-
     removeOneChar() {
-        const curExpression = String(store.curExpression);
-        const newExpWithRemovedChar = curExpression.toString().trim().substring(0, (curExpression.length - 1));
+        const curExpression = String(this.props.expression).trim();
+        const newExpWithRemovedChar = curExpression.substring(0, (curExpression.length - 1)).trim();
 
-        return store.newExpression = newExpWithRemovedChar === '' ? 0 : newExpWithRemovedChar;
+        this.props.updateExpression(newExpWithRemovedChar === '' ? 0 : newExpWithRemovedChar);
     }
 
     render() {
         return (
             <section className="buttons--controls">
-                <Button buttonClass="control" text="&larr;" clickHandler={this.removeOneChar}/>
-                <Button buttonClass="control" text="c" clickHandler={this.clearDisplay}/>
-                <Button buttonClass="control" text="history" clickHandler={this.showHistory}/>
+                <Button buttonClass="control" text="&larr;" clickHandler={() => this.removeOneChar()}/>
+                <Button buttonClass="control" text="c" clickHandler={() => this.props.resetExpression()}/>
+                <Button buttonClass="control" text="history" clickHandler={() => this.props.toggleHistory()}/>
             </section>
         )
     }
