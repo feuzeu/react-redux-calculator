@@ -96,7 +96,7 @@ hover::-webkit-scrollbar:horizontal,
     font-size: 3rem;
     line-height: 2;
     text-align: right;
-    direction: rtl;
+    /* direction: rtl; */
     white-space: nowrap;
 
     /*Colors*/

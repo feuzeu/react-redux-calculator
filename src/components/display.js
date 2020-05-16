@@ -7,9 +7,7 @@ class Display extends Component {
 
     render() {
         return (
-        <div className="display">
-            {this.props.expression.toString().split(' ').reverse().join(' ')}
-        </div>
+        <div className="display">{this.props.expression}</div>
         );
     }
 }
