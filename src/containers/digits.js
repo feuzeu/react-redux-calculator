@@ -1,15 +1,11 @@
 import { connect } from 'react-redux';
 import Digits from '../components/digits';
-import { updateExpression } from '../actions/expression/update';
-
-const mapStateToProps = (state) => {
-    return { expression: state.expression };
-};
+import { appendDigit } from '../actions/expression';
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateExpression: (value) => dispatch(updateExpression(value))
+        appendDigit: (value) => dispatch(appendDigit(value))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Digits);
+export default connect(null, mapDispatchToProps)(Digits);

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import History from '../components/history';
-import { updateExpression } from '../actions/expression/update';
-import { toggleHistory } from '../actions/history/toggle';
+import { setExpression } from '../actions/expression';
+import { toggleHistory } from '../actions/history';
 
 const mapStateToProps = (state) => {
     return { history: state.history };
@@ -9,8 +9,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateExpression: (value) => dispatch(updateExpression(value)),
         toggleHistory: () => dispatch(toggleHistory()),
+        setExpression: (expression) => {
+            dispatch(setExpression(expression));
+            dispatch(toggleHistory());
+        }
     };
 };
 

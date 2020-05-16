@@ -1,0 +1,2 @@
+export const UPDATE_HISTORY = 'UPDATE_HISTORY';
+export const TOGGLE_HISTORY = 'TOGGLE_HISTORY';

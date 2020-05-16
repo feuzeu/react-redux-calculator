@@ -1,15 +1,12 @@
 import { connect } from 'react-redux';
 import Operators from '../components/operators';
-import { updateExpression } from '../actions/expression/update';
-
-const mapStateToProps = (state) => {
-    return { expression: state.expression };
-};
+import { appendOperator, evalExpression } from '../actions/expression';
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateExpression: (value) => dispatch(updateExpression(value))
+        appendOperator: (value) => dispatch(appendOperator(value)),
+        evalExpression: () => dispatch(evalExpression())
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Operators);
+export default connect(null, mapDispatchToProps)(Operators);
