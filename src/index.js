@@ -7,8 +7,8 @@ import Calculator from './Calculator';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
-<Provider store = {store}>
-    <Calculator />
-</Provider>, document.getElementById('root'));
+    <Provider store = {store}>
+        <Calculator />
+    </Provider>, document.getElementById('root'));
 
 registerServiceWorker();
